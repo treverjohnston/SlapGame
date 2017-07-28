@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Slap Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="myArcher">
+                <div class="healthBar col-xs-3">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: 100%">
+                            100%
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="compArcher">
+                <div class="healthBar col-xs-offset-6 col-xs-3">
+                    <h2 id="compArcherHealth">Health:
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-3">
+                <div class="name">
+                    <h2>Harold the Archer</h2>
+                </div>
+                <div class="hits">
+                    <h2>Hits taken:
+                        <h3 id=""></h3>
+                    </h2>
+                </div>
+            </div>
+            <div class="col-xs-offset-6 col-xs-3">
+                <div class="name">
+                    <h2>Gerald the Archer</h2>
+                </div>
+                <div class="hits">
+                    <h2>Hits taken:
+                        <h3 id="hits"></h3>
+                    </h2>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="archer1 col-xs-6">
+                <img src="archer.png" class="img-responsive firstArcher" alt="archer">
+                <div class="buttons">
+                    <div id="barbed">
+                    </div>
+                    <div id="flame">
+                    </div>
+                    <div id="explode">
+                    </div>
+                </div>
+                <div id="items">
+                    <button type="button" class="btn btn-default" onclick="barbedArrow(), equip('barbed')">Equip Barbed Arrow</button>
+                    <button type="button" class="btn btn-default" onclick="flamingArrow(), equip('flame')">Equip Flaming Arrow</button>
+                    <button type="button" class="btn btn-default" onclick="explodingArrow(), equip('explode')">Equip Exploding Arrow</button>
+                </div>
+            </div>
+            <div class="archer2 col-xs-offset-3 col-xs-3">
+                <img src="archer2.png" class="img-responsive firstArcher" alt="archer">
+            </div>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+
+</html>
