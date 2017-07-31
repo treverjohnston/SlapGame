@@ -50,32 +50,29 @@
             </div>
         </div>
         <div class="row">
-            <div class="archer1 col-xs-6">
+            <div class="archer1 col-xs-4">
                 <div id="archerType">
                     <img src="archer.png" class="img-responsive firstArcher" alt="archer">
                 </div>
                 <div class="row">
-                    <div class="buttons ">
-                        <div class="col-xs-2 shoot" id="arrow-type">
-                            <button type="button" class="btn btn-default" onclick="basic(), hitCount()">Shoot Basic Arrow</button>
-                        </div>
-                        <div class="col-xs-12" id="items">
-                            <button type="button" class="btn btn-default equip col-xs-3 well" onclick="barbedArrow(archer1), equip('barbed')">Equip Barbed Arrow</button>
-                            <button type="button" class="btn btn-default equip col-xs-3 well" onclick="flamingArrow(archer1), equip('flame')">Equip Flaming Arrow</button>
-                            <button type="button" class="btn btn-default equip col-xs-3 well" onclick="explodingArrow(archer1), equip('explode')">Equip Exploding Arrow</button>
-                        </div>
+                    <div class="col-xs-offset-4 col-xs-4 shoot" id="arrow-type">
+                        <button type="button" class="btn btn-default" onclick="basic(), hitCount()">Shoot Basic Arrow</button>
                     </div>
-                    <div id="gameEnd" class="col-xs-12">
-                        <h1>Choose your weapon wisely</h1>
+                    <div class="col-xs-12" id="items">
+                        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="barbedArrow(archer1), equip('barbed')">Equip Barb</button>
+                        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="flamingArrow(archer1), equip('flame')">Equip Flame</button>
+                        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="explodingArrow(archer1), equip('explode')">Equip Bomb</button>
                     </div>
                 </div>
             </div>
-            <div class="archer2 col-xs-offset-3 col-xs-3">
+            <div id="gameEnd" class="col-xs-4">
+                <h1>Choose your weapon wisely</h1>
+            </div>
+            <div class="archer2 col-xs-4">
                 <img src="archer2.png" class="img-responsive firstArcher" alt="archer">
             </div>
         </div>
     </div>
     <script src="app.js"></script>
 </body>
-
 </html>

@@ -7,8 +7,10 @@ var items = {
 
 var archer1 = new Character('Harold the Archer', 'archer1')
 var archer2 = new Character('Gerald the Archer', 'archer2')
-var archer3 = new Character('Rald the Archer', 'archer3')
+var archer3 = new Character('Jim the Archer', 'archer3')
 
+
+//determines archer id
 function archerQ(Id) {
     if (Id == archer1.id) {
         return archer1
@@ -17,8 +19,9 @@ function archerQ(Id) {
     } else return archer3
 }
 
+//build characte function
 function Character(name, id) {
-        this.name = name,
+    this.name = name,
         this.id = id,
         this.items = [],
         this.health = 100,
@@ -26,12 +29,14 @@ function Character(name, id) {
         this.mods = [1]
 }
 
+//build item function
 function Item(name, modifier, description) {
-        this.name = name,
+    this.name = name,
         this.modifier = modifier,
         this.description = description
 }
 
+//adds up sum of all modifiers on items equipped
 function addMods() {
     var totalMod = 0
     for (var i = 0; i < archer1.items.length; i++) {
@@ -41,24 +46,28 @@ function addMods() {
     return archer1.mods.push(totalMod)
 }
 
+//attaches arrow type to archer object
 function barbedArrow() {
     archer1.items.shift()
     archer1.items.push(items.barbed)
     return addMods()
 }
 
+//attaches arrow type to archer object
 function flamingArrow() {
     archer1.items.shift()
     archer1.items.push(items.flaming)
     return addMods()
 }
 
+//attaches arrow type to archer object
 function explodingArrow() {
     archer1.items.shift()
     archer1.items.push(items.exploding)
     return addMods()
 }
 
+//presents button for arrow type
 function equip(type) {
     if (type == 'flame') {
         document.getElementById('arrow-type').innerHTML = `
@@ -84,268 +93,173 @@ function equip(type) {
     }
 }
 
-
+//completes attack function
 function basic() {
-        archer2.hits++
-        archer2.health -= .5
-        if (archer2.health < 0) {
-            archer2.health = 0
-        }
-        compAttackBasic('easy')
-        return update()
+    archer2.hits++
+    archer2.health -= .5
+    if (archer2.health < 0) {
+        archer2.health = 0
+    }
+    compAttackBasic('easy')
+    return update()
 }
 
-// if (archer2.health == 102) {
-//     archer3.health -= .5
-//     archer3.hits++
-//     if (archer3.health <= 0) {
-//         archer3.health = 0
-//     }
-//     compAttackBasic('medium')
-//     return update()
-// }
-
+//completes attack function
 function shoot() {
-        archer2.hits++
-        archer2.health -= .5 * (archer1.mods[archer1.mods.length - 1])
-        if (archer2.health < 0) {
-            archer2.health = 0
-        }
-        compAttackBarbed('easy')
-        return update()
+    archer2.hits++
+    archer2.health -= .5 * (archer1.mods[archer1.mods.length - 1])
+    if (archer2.health < 0) {
+        archer2.health = 0
     }
+    compAttackBarbed('easy')
+    return update()
+}
 
-//     }
-//     if (archer2.health == 102) {
-//         archer3.health -= .5 * (archer1.mods[archer1.mods.length - 1])
-//         archer3.hits++
-//         if (archer3.health <= 0) {
-//             archer3.health = 0
-//         }
-//         compAttackBarbed('medium')
-//         return update()
-//     }
-
-
+//completes attack function
 function flame() {
-        archer2.hits++
-        archer2.health -= 1 * (archer1.mods[archer1.mods.length - 1])
-        if (archer2.health < 0) {
-            archer2.health = 0
-        }
-        compAttackFlame('easy')
-        return update()
+    archer2.hits++
+    archer2.health -= 1 * (archer1.mods[archer1.mods.length - 1])
+    if (archer2.health < 0) {
+        archer2.health = 0
     }
+    compAttackFlame('easy')
+    return update()
+}
 
-
-// if (archer2.health == 102) {
-//     archer3.health -= 1 * (archer1.mods[archer1.mods.length - 1])
-//     archer3.hits++
-//     if (archer3.health <= 0) {
-//         archer3.health = 0
-//     compAttackFlame('medium')
-//     return update()
-//     }
-// }
-
+//completes attack function
 function explode() {
-        archer2.hits++
-        archer2.health -= 1.5 * (archer1.mods[archer1.mods.length - 1])
-        if (archer2.health < 0) {
-            archer2.health = 0
-        }
-        compAttackExploding('easy')
-        return update()
+    archer2.hits++
+    archer2.health -= 1.5 * (archer1.mods[archer1.mods.length - 1])
+    if (archer2.health < 0) {
+        archer2.health = 0
     }
-// if (archer2.health == 102) {
-//     archer3.health -=  1.5 * (archer1.mods[archer1.mods.length - 1])
-//     archer3.hits++
-//     if (archer3.health <= 0) {
-//         archer3.health = 0
-//     }
-//     compAttackExploding('medium')
-//     return update()
-// }
+    compAttackExploding('easy')
+    return update()
+}
 
+//adds to archer hitcount
 function hitCount(archer) {
     let archy = archerQ(archer)
     archy.hits++
     return update()
 }
 
+//draw function
 function update() {
-    // if (archer3.health <=0){
-    //     document.getElementById('gameEnd').innerHTML = `
-    //     <h1>${archer3.name} has been defeated!</h1>
-    //     <button type="button" class="btn btn-warning" onclick="reset()">Reset</button>
-    //     `
-    // }
-        document.getElementById('hits').innerHTML = archer2.hits
-        document.getElementById('compArcherHealth').innerHTML = `<div class="progress">
+    document.getElementById('hits').innerHTML = archer2.hits
+    document.getElementById('compArcherHealth').innerHTML = `<div class="progress">
                                                                     <div class="progress-bar" role="progressbar" style="width: ${archer2.health}%">
-                                                                    ${archer2.health}%
                                                                     </div>
                                                                  </div>`
 
-        // if (archer2.health == 102) {
-        //     document.getElementById('hits').innerHTML = archer3.hits
-        //     document.getElementById('compArcherHealth').innerHTML = `<div class="progress">
-        //                                                                 <div class="progress-bar" role="progressbar" style="width: ${archer3.health}%">
-        //                                                                 ${archer3.health}%
-        //                                                                 </div>
-        //                                                              </div>`
-
-
-        document.getElementById('userHits').innerHTML = archer1.hits
-        document.getElementById('userArcherHealth').innerHTML = `<div class="progress">
+    document.getElementById('userHits').innerHTML = archer1.hits
+    document.getElementById('userArcherHealth').innerHTML = `<div class="progress">
                                                                     <div class="progress-bar" role="progressbar" style="width: ${archer1.health}%">
-                                                                    ${archer1.health}%
                                                                     </div>
                                                                  </div>`
 
-
-        if (archer2.health <= 0) {
-            document.getElementById('gameEnd').innerHTML = `
+    if (archer2.health <= 0) {
+        document.getElementById('gameEnd').innerHTML = `
         <h1>${archer2.name} has been defeated!</h1>
         <button type="button" class="btn btn-warning" onclick="reset()">Reset</button>
         `
-        } else if (archer1.health <= 0) {
-            return document.getElementById('gameEnd').innerHTML = `
+    } else if (archer1.health <= 0) {
+        return document.getElementById('gameEnd').innerHTML = `
         <h1>${archer1.name} has been defeated with ${archer1.hits} hits!</h1>
         <button type="button" class="btn btn-warning" onclick="reset()">Reset</button>`
-        }
     }
+}
 
-
-    // function levelUp() {
-    //     if (archer2.health == 102){
-    //         document.getElementById('gameEnd').innerHTML = `
-    //         <h1>${archer3.name} has been defeated with ${archer3.hits} hits!</h1>
-    //         <button type="button" class="btn btn-warning" onclick="nextLevel()">Next Level</button>
-    //         `
-    //     } if(archer2.health <= 0) {
-    //         document.getElementById('comp').innerHTML = `
-    //                 <div class="name">
-    //                     <h2>Rald the Archer</h2>
-    //                 </div>
-    //                 <div class="hits">
-    //                     <h2>Hits taken:
-    //                         <h3 id="hits"></h3>
-    //                     </h2>
-    //                 </div>`
-    //     archer2.health = 102
-    //     }
-    // }
-
-    // function nextLevel() {
-    //     archer1.health = 100
-    //     archer1.hits = 0
-    //     document.getElementById('gameEnd').innerHTML = `
-    //         <h1>Congrats! You've made it to the next level.</h1>
-    //         `
-    //     if (archer2.health == 102) {
-    //         document.getElementById('comp').innerHTML = `
-    //                 <div class="name">
-    //                     <h2>Rald the Archer</h2>
-    //                 </div>
-    //                 <div class="hits">
-    //                     <h2>Hits taken:
-    //                         <h3 id="hits"></h3>
-    //                     </h2>
-    //                 </div>`
-    //     }
-    //     update()
-    // }
-
-    function reset() {
-        archer1.health = 100
-        archer1.hits = 0
-        archer2.health = 100
-        archer2.hits = 0
-        document.getElementById('archerType').innerHTML = `
+//resets game
+function reset() {
+    archer1.health = 100
+    archer1.hits = 0
+    archer2.health = 100
+    archer2.hits = 0
+    document.getElementById('archerType').innerHTML = `
         <img src="archer.png" class="img-responsive firstArcher" alt="archer">
         `
-        document.getElementById('gameEnd').innerHTML = ``
-        return update()
-    }
+    document.getElementById('gameEnd').innerHTML = ``
+    return update()
+}
 
-    //below is the comp specific functions
+//below are the comp specific functions
 
-    function compAttackBasic(archer) {
-        if (archer == 'easy') {
-            var ouch = Math.floor(Math.random()*3);
-            archer1.health -= ouch;
-            if (archer1.health <= 0) {
-                archer1.health = 0
-            }
-            archer1.hits++
-        } if (archer == 'medium') {
-            var ouch = (Math.floor(Math.random() * 1) + 1);
-            archer1.health -= ouch;
-            if (archer1.health <= 0) {
-                archer1.health = 0
-            }
-            archer1.hits++
+function compAttackBasic(archer) {
+    if (archer == 'easy') {
+        var ouch = Math.floor(Math.random() * 3);
+        archer1.health -= ouch;
+        if (archer1.health <= 0) {
+            archer1.health = 0
         }
-
-        update()
-    }
-
-    function compAttackBarbed(archer) {
-        if (archer == 'easy') {
-            var ouch = (Math.floor(Math.random() * 5) + 1);
-            archer1.health -= ouch;
-            if (archer1.health <= 0) {
-                archer1.health = 0
-            }
-            archer1.hits++
-        } if (archer == 'medium') {
-            var ouch = (Math.floor(Math.random() * 5) + 1);
-            archer1.health -= ouch;
-            if (archer1.health <= 0) {
-                archer1.health = 0
-            }
-            archer1.hits++
+        archer1.hits++
+    } if (archer == 'medium') {
+        var ouch = (Math.floor(Math.random() * 1) + 1);
+        archer1.health -= ouch;
+        if (archer1.health <= 0) {
+            archer1.health = 0
         }
-        update()
-    }
-
-    function compAttackFlame(archer) {
-        if (archer == 'easy') {
-            var ouch = (Math.floor(Math.random() * 5) + 1);
-            archer1.health -= ouch;
-            if (archer1.health <= 0) {
-                archer1.health = 0
-            }
-            archer1.hits++
-        } if (archer == 'medium') {
-            var ouch = (Math.floor(Math.random() * 8) + 1);
-            archer1.health -= ouch;
-            if (archer1.health <= 0) {
-                archer1.health = 0
-            }
-            archer1.hits++
-        }
-        update()
-    }
-
-    function compAttackExploding(archer) {
-        if (archer == 'easy') {
-            var ouch = (Math.floor(Math.random() * 11) + 1);
-            archer1.health -= ouch;
-            if (archer1.health <= 0) {
-                archer1.health = 0
-            }
-            archer1.hits++
-        } if (archer == 'medium') {
-            var ouch = (Math.floor(Math.random() * 12) + 1);
-            archer1.health -= ouch;
-            if (archer1.health <= 0) {
-                archer1.health = 0
-            }
-            archer1.hits++
-        }
-        update()
+        archer1.hits++
     }
 
     update()
+}
+
+function compAttackBarbed(archer) {
+    if (archer == 'easy') {
+        var ouch = (Math.floor(Math.random() * 5) + 1);
+        archer1.health -= ouch;
+        if (archer1.health <= 0) {
+            archer1.health = 0
+        }
+        archer1.hits++
+    } if (archer == 'medium') {
+        var ouch = (Math.floor(Math.random() * 5) + 1);
+        archer1.health -= ouch;
+        if (archer1.health <= 0) {
+            archer1.health = 0
+        }
+        archer1.hits++
+    }
+    update()
+}
+
+function compAttackFlame(archer) {
+    if (archer == 'easy') {
+        var ouch = (Math.floor(Math.random() * 5) + 1);
+        archer1.health -= ouch;
+        if (archer1.health <= 0) {
+            archer1.health = 0
+        }
+        archer1.hits++
+    } if (archer == 'medium') {
+        var ouch = (Math.floor(Math.random() * 8) + 1);
+        archer1.health -= ouch;
+        if (archer1.health <= 0) {
+            archer1.health = 0
+        }
+        archer1.hits++
+    }
+    update()
+}
+
+function compAttackExploding(archer) {
+    if (archer == 'easy') {
+        var ouch = (Math.floor(Math.random() * 11) + 1);
+        archer1.health -= ouch;
+        if (archer1.health <= 0) {
+            archer1.health = 0
+        }
+        archer1.hits++
+    } if (archer == 'medium') {
+        var ouch = (Math.floor(Math.random() * 12) + 1);
+        archer1.health -= ouch;
+        if (archer1.health <= 0) {
+            archer1.health = 0
+        }
+        archer1.hits++
+    }
+    update()
+}
+
+update()
