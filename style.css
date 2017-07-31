@@ -1,3 +1,20 @@
+body{
+    background-image: url("landscape.png");
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: 'Bellefair', serif;
+}
+
 .firstArcher {
-    min-height: 50rem;
+    min-height: 40rem;
+}
+
+.shoot{
+    margin: 5rem 0rem 5rem 27rem;
+}
+
+.equip{
+    margin: 0 1rem 0 1rem;
+    font-size: 1.75rem;
 }
