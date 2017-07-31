@@ -56,12 +56,12 @@
                 </div>
                 <div class="row">
                     <div class="col-xs-offset-4 col-xs-4 shoot" id="arrow-type">
-                        <button type="button" class="btn btn-default" onclick="basic(), hitCount()">Shoot Basic Arrow</button>
+                        <button type="button" class="btn btn-default" onclick="app.controllers.gameController.attack('basic'), app.controllers.gameController.hitCounter()">Shoot Basic Arrow</button>
                     </div>
                     <div class="col-xs-12" id="items">
-                        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="barbedArrow(archer1), equip('barbed')">Equip Barb</button>
-                        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="flamingArrow(archer1), equip('flame')">Equip Flame</button>
-                        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="explodingArrow(archer1), equip('explode')">Equip Bomb</button>
+                        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="app.controllers.gameController.attackType('barbed')">Equip Barb</button>
+                        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="app.controllers.gameController.attackType('flame')">Equip Flame</button>
+                        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="app.controllers.gameController.attackType('explode')">Equip Bomb</button>
                     </div>
                 </div>
             </div>
@@ -73,6 +73,8 @@
             </div>
         </div>
     </div>
+    <script src="GameService.js"></script>
+    <script src="GameController.js"></script>
     <script src="app.js"></script>
 </body>
 </html>
