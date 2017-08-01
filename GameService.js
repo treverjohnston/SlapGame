@@ -11,7 +11,6 @@ function GameService() {
     var archer2 = new Character('Gerald the Archer', 'archer2')
     var archer3 = new Character('Jim the Archer', 'archer3')
 
-
     //build character function
     function Character(name, id) {
         this.name = name,
@@ -20,12 +19,8 @@ function GameService() {
             this.health = 100,
             this.hits = 0,
             this.mods = [1]
-        this.attacks = {
-            "basic": 'basic',
-            "barbed": 'barbed',
-            "flame": 'flame',
-            "explode": 'explode'
-        }
+        this.damage = -1,
+            this.winCount = 0
     }
 
     //build item function
@@ -44,11 +39,25 @@ function GameService() {
         return archer1.mods.push(totalMod)
     }
 
+    //updates winCount
+    function winCount() {
+        if (archer2.health <= 0 && archer1.health > 0) {
+            archer1.winCount++
+            console.log(archer1.winCount)
+        }
+        if (archer1.health <= 0 && archer2 > 0) {
+            archer2.winCount++
+            console.log(archer2.winCount)
+        }
+    }
+
     //adds to archer hitcount
     function hitCount() {
         if (archer1.health > 0 && archer2.health > 0) {
             archer1.hits++
-            archer2.hits++
+            if (archer2.damage > 0) {
+                archer2.hits++
+            }
         }
     }
 
@@ -69,108 +78,100 @@ function GameService() {
     }
 
     //attaches arrow type to archer object
-    function barbedArrow() {
-        archer1.items.shift()
-        archer1.items.push(items.barbed)
-        return addMods()
-    }
-
-    //attaches arrow type to archer object
-    function flamingArrow() {
-        archer1.items.shift()
-        archer1.items.push(items.flaming)
-        return addMods()
-    }
-
-    //attaches arrow type to archer object
-    function explodingArrow() {
-        archer1.items.shift()
-        archer1.items.push(items.exploding)
-        return addMods()
-    }
-    //completes attack function
-    function basic() {
-        archer2.health -= .5
-        if (archer2.health < 0) {
-            archer2.health = 0
+    function arrow(type) {
+        if (type == 'barbed') {
+            archer1.items.shift()
+            archer1.items.push(items.barbed)
+            return addMods()
         }
-
-        setTimeout(compAttackBasic, 3000)
-    }
-
-    //completes attack function
-    function shoot() {
-        if (archer1.health > 0) {
-            archer2.health -= .5 * (archer1.mods[archer1.mods.length - 1])
-            if (archer2.health < 0) {
-                archer2.health = 0
-            }
-
+        if (type == 'flame') {
+            archer1.items.shift()
+            archer1.items.push(items.flaming)
+            return addMods()
         }
-        compAttackBarbed()
+        if (type == 'explode') {
+            archer1.items.shift()
+            archer1.items.push(items.exploding)
+            return addMods()
+        }
     }
-
     //completes attack function
-    function flame() {
-        if (archer1.health > 0) {
-            archer2.health -= 1 * (archer1.mods[archer1.mods.length - 1])
+    function attack(type) {
+        let damage = (Math.floor(Math.random() * 3)) * (archer1.mods[archer1.mods.length - 1])
+        if (type == 'basic') {
+            archer2.health -= .5
             if (archer2.health < 0) {
                 archer2.health = 0
             }
         }
-        compAttackFlame()
-    }
-
-    //completes attack function
-    function explode() {
-        if (archer1.health > 0) {
-            archer2.health -= 1.5 * (archer1.mods[archer1.mods.length - 1])
-            if (archer2.health < 0) {
-                archer2.health = 0
+        if (type == 'barbed') {
+            if (archer1.health > 0) {
+                archer2.health -= damage
+                if (archer2.health < 0) {
+                    archer2.health = 0
+                }
             }
         }
-        compAttackExploding()
+        if (type == 'flame') {
+            if (archer1.health > 0) {
+                archer2.health -= damage
+                if (archer2.health < 0) {
+                    archer2.health = 0
+                }
+            }
+        }
+        if (type == 'explode') {
+            if (archer1.health > 0) {
+                archer2.health -= damage
+                if (archer2.health < 0) {
+                    archer2.health = 0
+                }
+            }
+        }
+        compAttack(type)
+        winCount()
+        archer2.damage = damage
     }
     //below are the comp specific functions
-    function compAttackBasic() {
-        if (archer2.health > 0) {
-            var ouch = (Math.floor(Math.random() * 1) + 1);
-            archer1.health -= ouch;
-            if (archer1.health <= 0) {
-                archer1.health = 0
+    function compAttack(type) {
+        if (type == 'basic') {
+            if (archer2.health > 0) {
+                var ouch = Math.floor(Math.random() + .5);
+                archer1.health -= ouch;
+                if (archer1.health <= 0) {
+                    archer1.health = 0
+                }
+            }
+        }
+        if (type == 'barbed') {
+            if (archer2.health > 0) {
+                var ouch = (Math.floor(Math.random() * 3) + 1);
+                archer1.health -= ouch;
+                if (archer1.health <= 0) {
+                    archer1.health = 0
+                }
+            }
+        }
+        if (type == 'flame') {
+            if (archer2.health > 0) {
+                var ouch = (Math.floor(Math.random() * 5) + 1);
+                archer1.health -= ouch;
+                if (archer1.health <= 0) {
+                    archer1.health = 0
+                }
+            }
+        }
+        if (type == 'explode') {
+            if (archer2.health > 0) {
+                var ouch = (Math.floor(Math.random() * 7) + 1);
+                archer1.health -= ouch;
+                if (archer1.health <= 0) {
+                    archer1.health = 0
+                }
             }
         }
     }
 
-    function compAttackBarbed() {
-        if (archer2.health > 0) {
-            var ouch = (Math.floor(Math.random() * 3) + 1);
-            archer1.health -= ouch;
-            if (archer1.health <= 0) {
-                archer1.health = 0
-            }
-        }
-    }
-
-    function compAttackFlame() {
-        if (archer2.health > 0) {
-            var ouch = (Math.floor(Math.random() * 5) + 1);
-            archer1.health -= ouch;
-            if (archer1.health <= 0) {
-                archer1.health = 0
-            }
-        }
-    }
-
-    function compAttackExploding() {
-        if (archer2.health > 0) {
-            var ouch = (Math.floor(Math.random() * 7) + 1);
-            archer1.health -= ouch;
-            if (archer1.health <= 0) {
-                archer1.health = 0
-            }
-        }
-    }
     function archerId(Id) {
         if (Id == archer1.id) {
             return archer1
@@ -179,54 +180,41 @@ function GameService() {
             return archer2
         }
     }
+
     //public
 
-    //determines archer id
+    //creates archer 1 clone
     this.getArcherOne = function getArcherOne() {
         var archerOneCopy = Object.assign({}, archer1)
         return archerOneCopy
     }
-
+    //creates archer 2 clone
     this.getArcherTwo = function getArcherTwo() {
         var archerTwoCopy = Object.assign({}, archer2)
         return archerTwoCopy
     }
-
+    //assigns items to archer 1
     this.getItems = function getItems() {
         var getArcherItems = Object.assign({}, archer1.items)
     }
 
+    //equips arrow mods
     this.getArrow = function getArrow(type) {
-        if (type == 'barbed') {
-            return barbedArrow()
-        }
-        if (type == 'flame') {
-            return flamingArrow()
-        }
-        if (type == 'explode') {
-            return explodingArrow()
-        }
+        arrow(type)
     }
 
-    this.getHits = function getHits() {
+    //updates hit count
+    this.getHits = function () {
         hitCount()
+
     }
 
+    //determines and completes attack type
     this.getAttack = function getAttack(type) {
-        if (type == 'basic') {
-            return basic()
-        }
-        if (type == 'barbed') {
-            return shoot()
-        }
-        if (type == 'flame') {
-            return flame()
-        }
-        if (type == 'explode') {
-            return explode()
-        }
+        attack(type)
     }
 
+    //resets game
     this.getReset = function getReset() {
         return reset()
     }
