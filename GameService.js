@@ -46,8 +46,10 @@ function GameService() {
 
     //adds to archer hitcount
     function hitCount() {
-        archer1.hits++
-        archer2.hits++
+        if (archer1.health > 0 && archer2.health > 0) {
+            archer1.hits++
+            archer2.hits++
+        }
     }
 
     //resets game
@@ -92,64 +94,47 @@ function GameService() {
         if (archer2.health < 0) {
             archer2.health = 0
         }
-        compAttackBasic()
+
+        setTimeout(compAttackBasic, 3000)
     }
 
     //completes attack function
     function shoot() {
-        if (archer2.hits % 10 == 0) {
-            archer2.health -= 1 * (archer1.mods[archer1.mods.length - 1])
+        if (archer1.health > 0) {
+            archer2.health -= .5 * (archer1.mods[archer1.mods.length - 1])
             if (archer2.health < 0) {
                 archer2.health = 0
             }
-        }
-        archer2.health -= .5 * (archer1.mods[archer1.mods.length - 1])
-        if (archer2.health < 0) {
-            archer2.health = 0
+
         }
         compAttackBarbed()
     }
 
     //completes attack function
     function flame() {
-        if (archer2.hits % 10 == 0) {
-            archer2.health -= 2 * (archer1.mods[archer1.mods.length - 1])
+        if (archer1.health > 0) {
+            archer2.health -= 1 * (archer1.mods[archer1.mods.length - 1])
             if (archer2.health < 0) {
                 archer2.health = 0
             }
-        }
-        archer2.health -= 1 * (archer1.mods[archer1.mods.length - 1])
-        if (archer2.health < 0) {
-            archer2.health = 0
         }
         compAttackFlame()
     }
 
     //completes attack function
     function explode() {
-        if (archer2.hits % 10 == 0) {
-            archer2.health -= 3 * (archer1.mods[archer1.mods.length - 1])
+        if (archer1.health > 0) {
+            archer2.health -= 1.5 * (archer1.mods[archer1.mods.length - 1])
             if (archer2.health < 0) {
                 archer2.health = 0
             }
-        }
-        archer2.health -= 1.5 * (archer1.mods[archer1.mods.length - 1])
-        if (archer2.health < 0) {
-            archer2.health = 0
         }
         compAttackExploding()
     }
     //below are the comp specific functions
     function compAttackBasic() {
-        if (archer2.health >= 50) {
-            var ouch = Math.floor(Math.random() * 2);
-            archer1.health -= ouch;
-            if (archer1.health <= 0) {
-                archer1.health = 0
-            }
-
-        } if (archer2.health >= 0 && archer2.health < 50) {
-            var ouch = (Math.floor(Math.random() * 5) + 1);
+        if (archer2.health > 0) {
+            var ouch = (Math.floor(Math.random() * 1) + 1);
             archer1.health -= ouch;
             if (archer1.health <= 0) {
                 archer1.health = 0
@@ -158,15 +143,8 @@ function GameService() {
     }
 
     function compAttackBarbed() {
-        if (archer2.health >= 50) {
-            var ouch = (Math.floor(Math.random() * 2) + 1);
-            archer1.health -= ouch;
-            if (archer1.health <= 0) {
-                archer1.health = 0
-            }
-
-        } if (archer2.health >= 0 && archer2.health < 50) {
-            var ouch = (Math.floor(Math.random() * 10) + 1);
+        if (archer2.health > 0) {
+            var ouch = (Math.floor(Math.random() * 3) + 1);
             archer1.health -= ouch;
             if (archer1.health <= 0) {
                 archer1.health = 0
@@ -175,38 +153,22 @@ function GameService() {
     }
 
     function compAttackFlame() {
-        if (archer2.health >= 50) {
+        if (archer2.health > 0) {
             var ouch = (Math.floor(Math.random() * 5) + 1);
             archer1.health -= ouch;
             if (archer1.health <= 0) {
                 archer1.health = 0
             }
-
-        } if (archer2.health >= 0 && archer2.health < 50) {
-            var ouch = (Math.floor(Math.random() * 15) + 1);
-            archer1.health -= ouch;
-            if (archer1.health <= 0) {
-                archer1.health = 0
-            }
-
         }
     }
 
     function compAttackExploding() {
-        if (archer2.health >= 50) {
-            var ouch = (Math.floor(Math.random() * 11) + 1);
+        if (archer2.health > 0) {
+            var ouch = (Math.floor(Math.random() * 7) + 1);
             archer1.health -= ouch;
             if (archer1.health <= 0) {
                 archer1.health = 0
             }
-
-        } if (archer2.health >= 0 && archer2.health < 50) {
-            var ouch = (Math.floor(Math.random() * 18) + 1);
-            archer1.health -= ouch;
-            if (archer1.health <= 0) {
-                archer1.health = 0
-            }
-
         }
     }
     function archerId(Id) {
