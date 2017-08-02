@@ -43,18 +43,17 @@ function GameService() {
     function winCount() {
         if (archer2.health <= 0 && archer1.health > 0) {
             archer1.winCount++
-            console.log(archer1.winCount)
         }
-        if (archer1.health <= 0 && archer2 > 0) {
+        if (archer1.health <= 0 && archer2.health > 0) {
             archer2.winCount++
-            console.log(archer2.winCount)
         }
     }
-
     //adds to archer hitcount
     function hitCount() {
         if (archer1.health > 0 && archer2.health > 0) {
-            archer1.hits++
+            if (archer1.damage > 0) {
+                archer1.hits++
+            }
             if (archer2.damage > 0) {
                 archer2.hits++
             }
@@ -71,8 +70,13 @@ function GameService() {
         <img src="archer.png" class="img-responsive firstArcher" alt="archer">
         `
         document.getElementById('arrow-type').innerHTML = `
-        <button type="button" class="btn btn-default" onclick="app.controllers.gameController.attack('basic'), app.controllers.gameController.hitCounter()">Shoot Basic Arrow</button>
+        <button type="button" class="btn btn-default" onclick="app.controllers.gameController.getAttack('basic'), app.controllers.gameController.hitCounter()">Shoot Basic Arrow</button>
 
+        `
+        document.getElementById('items').innerHTML = `
+        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="app.controllers.gameController.attackType('barbed')">Equip Barb</button>
+        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="app.controllers.gameController.attackType('flame')">Equip Flame</button>
+        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="app.controllers.gameController.attackType('explode')">Equip Bomb</button>
         `
         document.getElementById('gameEnd').innerHTML = ``
     }
@@ -136,8 +140,9 @@ function GameService() {
     function compAttack(type) {
         if (type == 'basic') {
             if (archer2.health > 0) {
-                var ouch = Math.floor(Math.random() + .5);
+                var ouch = Math.floor(Math.random() * .75);
                 archer1.health -= ouch;
+                archer1.damage = ouch;
                 if (archer1.health <= 0) {
                     archer1.health = 0
                 }
@@ -145,8 +150,9 @@ function GameService() {
         }
         if (type == 'barbed') {
             if (archer2.health > 0) {
-                var ouch = (Math.floor(Math.random() * 3) + 1);
+                var ouch = (Math.floor(Math.random() * 3) + 0);
                 archer1.health -= ouch;
+                archer1.damage = ouch;
                 if (archer1.health <= 0) {
                     archer1.health = 0
                 }
@@ -154,8 +160,9 @@ function GameService() {
         }
         if (type == 'flame') {
             if (archer2.health > 0) {
-                var ouch = (Math.floor(Math.random() * 5) + 1);
+                var ouch = (Math.floor(Math.random() * 6) + 0);
                 archer1.health -= ouch;
+                archer1.damage = ouch;
                 if (archer1.health <= 0) {
                     archer1.health = 0
                 }
@@ -163,8 +170,9 @@ function GameService() {
         }
         if (type == 'explode') {
             if (archer2.health > 0) {
-                var ouch = (Math.floor(Math.random() * 7) + 1);
+                var ouch = (Math.floor(Math.random() * 9) + 0);
                 archer1.health -= ouch;
+                archer1.damage = ouch;
                 if (archer1.health <= 0) {
                     archer1.health = 0
                 }
@@ -206,7 +214,6 @@ function GameService() {
     //updates hit count
     this.getHits = function () {
         hitCount()
-
     }
 
     //determines and completes attack type
