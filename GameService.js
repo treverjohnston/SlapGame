@@ -74,9 +74,9 @@ function GameService() {
 
         `
         document.getElementById('items').innerHTML = `
-        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="app.controllers.gameController.attackType('barbed')">Equip Barb</button>
-        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="app.controllers.gameController.attackType('flame')">Equip Flame</button>
-        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="app.controllers.gameController.attackType('explode')">Equip Bomb</button>
+        <button type="button" class="btn btn-default equip col-md-4 well" onclick="app.controllers.gameController.attackType('barbed')">Equip Barb</button>
+        <button type="button" class="btn btn-default equip col-md-4 well" onclick="app.controllers.gameController.attackType('flame')">Equip Flame</button>
+        <button type="button" class="btn btn-default equip col-md-4 well" onclick="app.controllers.gameController.attackType('explode')">Equip Bomb</button>
         `
         document.getElementById('gameEnd').innerHTML = ``
     }
@@ -140,7 +140,7 @@ function GameService() {
     function compAttack(type) {
         if (type == 'basic') {
             if (archer2.health > 0) {
-                var ouch = Math.floor(Math.random() * .75);
+                var ouch = Math.floor(Math.random() * 2);
                 archer1.health -= ouch;
                 archer1.damage = ouch;
                 if (archer1.health <= 0) {
@@ -150,7 +150,7 @@ function GameService() {
         }
         if (type == 'barbed') {
             if (archer2.health > 0) {
-                var ouch = (Math.floor(Math.random() * 3) + 0);
+                var ouch = Math.floor(Math.random() * 5);
                 archer1.health -= ouch;
                 archer1.damage = ouch;
                 if (archer1.health <= 0) {
@@ -160,7 +160,7 @@ function GameService() {
         }
         if (type == 'flame') {
             if (archer2.health > 0) {
-                var ouch = (Math.floor(Math.random() * 6) + 0);
+                var ouch = Math.floor(Math.random() * 6);
                 archer1.health -= ouch;
                 archer1.damage = ouch;
                 if (archer1.health <= 0) {
@@ -170,7 +170,7 @@ function GameService() {
         }
         if (type == 'explode') {
             if (archer2.health > 0) {
-                var ouch = (Math.floor(Math.random() * 9) + 0);
+                var ouch = Math.floor(Math.random() * 9);
                 archer1.health -= ouch;
                 archer1.damage = ouch;
                 if (archer1.health <= 0) {

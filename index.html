@@ -18,58 +18,54 @@
                 <div class="healthBar col-xs-3">
                     <h2 id="userArcherHealth">Health:
                     </h2>
+                    <div class="name">
+                        <h2>Harold the Archer</h2>
+                    </div>
+                    <div id="winsOne">
+                        <h2>Wins:</h2>
+                    </div>
+                    <div class="hits" id="userHits">
+                        <h2 id="userHits"></h2>
+                    </div>
                 </div>
+            </div>
+            <div class="col-xs-6" id="gameEnd">
+                <h1>Choose your weapon wisely</h1>
             </div>
             <div class="compArcher">
-                <div class="healthBar col-xs-offset-6 col-xs-3">
+                <div class="healthBar col-xs-3">
                     <h2 id="compArcherHealth">Health:
                     </h2>
+                    <div id="comp">
+                        <div class="name">
+                            <h2>Gerald the Archer</h2>
+                        </div>
+                        <div id="winsTwo">
+                            <h2>Wins:</h2>
+                        </div>
+                        <div class="hits" id="hits">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-3">
-                <div class="name">
-                    <h2>Harold the Archer</h2>
-                </div>
-                <div id="winsOne">
-                    <h2>Wins:</h2>
-                </div>
-                <div class = "hits" id = "userHits">
-                    <h2 id ="userHits"></h2>
-                </div>
-            </div>
-            <div id="comp" class="col-xs-offset-6 col-xs-3">
-                <div class="name">
-                    <h2>Gerald the Archer</h2>
-                </div>
-                <div id="winsTwo">
-                    <h2>Wins:</h2>
-                </div>
-                <div class="hits"id="hits">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="archer1 col-xs-4">
+            <div class="archer1 col-xs-6">
                 <div id="archerType">
                     <img src="archer.png" class="img-responsive firstArcher" alt="archer">
                 </div>
                 <div class="row">
-                    <div class="col-xs-offset-4 col-xs-4 shoot" id="arrow-type">
+                    <div class="col-xs-2 shoot" id="arrow-type">
                         <button type="button" class="btn btn-default" onclick="app.controllers.gameController.getAttack('basic'), app.controllers.gameController.hitCounter()">Shoot Basic Arrow</button>
                     </div>
                     <div class="col-xs-12" id="items">
-                        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="app.controllers.gameController.attackType('barbed')">Equip Barb</button>
-                        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="app.controllers.gameController.attackType('flame')">Equip Flame</button>
-                        <button type="button" class="btn btn-default equip col-xs-3 well" onclick="app.controllers.gameController.attackType('explode')">Equip Bomb</button>
+                        <button type="button" class="btn btn-default equip col-md-4 well" onclick="app.controllers.gameController.attackType('barbed')">Equip Barb</button>
+                        <button type="button" class="btn btn-default equip col-md-4 well" onclick="app.controllers.gameController.attackType('flame')">Equip Flame</button>
+                        <button type="button" class="btn btn-default equip col-md-4 well" onclick="app.controllers.gameController.attackType('explode')">Equip Bomb</button>
                     </div>
                 </div>
             </div>
-            <div id="gameEnd" class="col-xs-4">
-                <h1>Choose your weapon wisely</h1>
-            </div>
-            <div class="archer2 col-xs-4">
+            <div class="archer2 col-xs-offset-2 col-xs-4">
                 <img src="archer2.png" class="img-responsive firstArcher" alt="archer">
             </div>
         </div>
